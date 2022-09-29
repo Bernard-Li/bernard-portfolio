@@ -1,9 +1,9 @@
-import Homepage from "./components/Homepage";
+import GridPractice from "./components/GridPractice";
 
 const App = () => {
   return (
     <>
-      <Homepage />      
+      <GridPractice />      
     </>
   )
 }
