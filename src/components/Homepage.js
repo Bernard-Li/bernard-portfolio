@@ -4,14 +4,35 @@ import SwipeableViews from "react-swipeable-views/lib/SwipeableViews";
 import ProjectOne from "./ProjectOne";
 import Instructions from "./Instructions";
 import Footer from "./Footer";
-import ProjectButton from "./ProjectButton";
 import { useState } from "react";
 
 const Homepage = () => {
-  //Default to show final project - swivy
-  const [projectView, setProjectView] = useState('Swivy');
+  //Keeps track of which slide the user is on based on the index of swipeable-views
+  const [index, setIndex] = useState(0);
+  const [swipeChange, setSwipeChange] = useState(0);
+  const [swivyButton, setSwivyButton] = useState(false);
+  const [ecommButton, setECommButton] = useState(false);
 
-  return (
+  //Funciton that changes the view based on which button is selected by the user
+  const handleViewFocus = (e) => {
+    switch (e) {
+      case 'swivy':
+        setSwivyButton(true);
+        setECommButton(false);
+        window.scrollTo(200, 385);
+        return setIndex(1);
+      case 'ecommerce':
+        setSwivyButton(false);
+        setECommButton(true);
+        window.scrollTo(200, 385);
+        return setIndex(2);
+      default: 
+        setIndex(0);
+    }
+    // console.log(e);
+    // setIndex(1);
+  };
+    return (
     <BodyWrapper>
     <ContainerGrid>
     <GlobalStyles />
@@ -29,11 +50,36 @@ const Homepage = () => {
       <div className="box-div placeholder grid-span-3">
       </div>
       <div className="box-div project-select-div">
+      <div>
         <h3>Select a project</h3>
-        <ProjectButton />
+      </div>
+        <div
+          className="swivy-btn">
+        <Button
+          isSelected={swivyButton}
+          value="swivy"
+          onClick={(e) => {
+            handleViewFocus(e.target.value)}
+            }>
+          Swivy
+        </Button>
+        </div>
+        <div
+          className="eommerce-btn">
+        <Button
+          isSelected={ecommButton}
+          value="ecommerce"
+          onClick={(e) => {
+            handleViewFocus(e.target.value)}
+            }>
+          E-Commerce
+        </Button>
+        </div>
       </div>
     <Wrapper>
-    <SwipeableViews enableMouseEvents>
+    <SwipeableViews index={index}>
+    {/* onChangeIndex={handleSlideChange} */}
+    {/* enableMouseEvents */}
     <div
         // style={Object.assign({}, styles.slide, styles.slide1)}
         className="slide slide0">
@@ -62,6 +108,24 @@ const Homepage = () => {
 
 export default Homepage;
 
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  margin: 8px;
+  min-width: 200px;
+  height: 80px;
+  /* background-color: ${(props) => (props.isSelected) ? 'green' : 'none'}; */
+  /* border-top: ${(props) => (props.isSelected) ? '2px solid black' : 'none'}; */
+  /* border-bottom: ${(props) => (props.isSelected) ? '2px solid black' : 'none'}; */
+  transition: 0.4s ease;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.4;
+  }`
+  
 const BodyWrapper = styled.div`
   display: flex;
   min-height: 100vh;
@@ -136,6 +200,17 @@ const ContainerGrid = styled.div`
   .project-select-div {
     grid-column-start: 1;
     grid-row-start: 3;
+
+    display: flex;
+    flex-direction: column;
+    width: 192px;
+    border: 2px solid pink;
+
+    .swivy-btn {
+      border-bottom: 2px solid black;
+      border-left: 2px solid black;
+      
+    }
   }
   .grid-span-2 {
     grid-column: span 2;
