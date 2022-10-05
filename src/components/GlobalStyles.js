@@ -9,8 +9,10 @@ body {
   ${'' /* background: #121212; */}
   background: #ffffff;
   ${'' /* background: #050505; //black (rich black fogra); */}
-  font-family: "Audiowide", sans-serif;
+  ${'' /* font-family: 'Oleo Script', cursive; */}
+  font-family: 'Share Tech Mono', monospace;
 }
+
 
 h1, h2, h3, h4, p, div {
   padding: 0;

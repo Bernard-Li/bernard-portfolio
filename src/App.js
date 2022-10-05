@@ -1,9 +1,11 @@
 import Homepage from "./components/Homepage";
+import AboutMe from "./components/AboutMe";
 
 const App = () => {
   return (
     <>
-      <Homepage />      
+      {/* <Homepage />       */}
+      <AboutMe />
     </>
   )
 }
